@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m-sandusky/MapApp.git"
+    "url": "git+https://github.com/FragrantNumerator/MapApp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/m-sandusky/MapApp/issues"
+    "url": "https://github.com/m-sandusky/FragrantNumerator/issues"
   },
-  "homepage": "https://github.com/m-sandusky/MapApp#readme",
+  "homepage": "https://github.com/FragrantNumerator/MapApp#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
