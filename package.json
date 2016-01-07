@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/m-sandusky/MapApp/issues"
   },
-  "homepage": "https://github.com/m-sandusky/MapApp#readme"
+  "homepage": "https://github.com/m-sandusky/MapApp#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "favicon": "0.0.2",
+    "mongoose": "^4.3.4"
+  }
 }
