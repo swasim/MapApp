@@ -1,0 +1,21 @@
+{
+  "name": "MapApp",
+  "homepage": "https://github.com/m-sandusky/MapApp",
+  "authors": [
+    "m-sandusky <msandusky08@gmail.com>"
+  ],
+  "description": "",
+  "main": "client/app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
