@@ -4,13 +4,15 @@ var path = require('path');
 var favicon = require('favicon');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+// **Important password and keys **
+var KEYS = require('../config.js');
 
 // Setup server to listen on process.en.PORT delegating to port 3000
 var port = process.env.PORT || 3000;
 
 // ** NEED TO IMPLEMENT Setup server to listen to MongoLab URI delegating to local db 
-// var mapDB = process.env.MONGOLAB_URI || 'mongodb://localhost/';
-// var mongoose.connect(mapDB);
+var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + KEYS.user + ':' + KEYS.password + '@ds039095.mongolab.com:39095/users-tweets';
+mongoose.connect(mapDB);
 
 // Setup app and routing
 var app = express();
