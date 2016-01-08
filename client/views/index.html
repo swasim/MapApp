@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html ng-app="app">
-  <head></head>
+  <head>
+    <link rel="stylesheet" href="client/assets/stylesheets/styles.css"></link>
+  </head>
   <body ng-controller="mapsPageController">
+
+    <nav>
+      <ul class='navigation'>
+        <li><a href="#">home</a></li>
+        <li><a href="#">map</a></li>  
+        <li><a href="#/signin">sign in</a></li>
+        <li><a href="#">sign out</a></li>  
+      </ul>
+    </nav>
+
     <form>
       <input type="text" ng-model="firstInputField" placeholder="placeholder1"></input>
       <input type="text" ng-model="secondInputField" placeholder="placeholder2"></input>
       <button type="submit">send</button>
     </form>
+
+    <!--ui view will be inserted below-->
+    <div ui-view></div>
+    <!--ui view inserterted above-->
+
   </body>
-  <script src="../../bower_components/angular/angular.js"></script>
-  <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="../app.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="client/public/signup.js"></script>
+  <script src="client/app.js"></script>
 </html> 
