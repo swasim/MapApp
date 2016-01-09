@@ -10,17 +10,18 @@ router.get('/', function(req, res, next) {
 });
 
 // Handle GET request to Twitter API
-router.get('/api/tweets', function(req, res) {
-  console.log('Received query from client:', req.query);
+router.get('/api/tweets/:category', function(req, res) {
+  console.log('Received query from client:', req.params);
   // Using req.query, provide the query by client and the number of tweets to get
-  twitterApiController.getTweets(req.query, function(err, data) {
+  twitterApiController.getTweets(req.params.category, 10, function(err, data) {
     // ** Reject data that doesn't have a location ** !!! Need to do this
     if (err) {
       console.log('Error getting data from Twttier API');
+      throw new Error(err);
+
     } else {
       res.json(data);
     }
-
   });
 
 });

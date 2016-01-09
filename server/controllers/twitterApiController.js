@@ -1,7 +1,7 @@
 // Import twit npm module
 var Twit = require('twit');
 // Imports twitter credential config
-var twitterCredentials = require('../../config.js');
+var twitterCredentials = require('../../config.js').twitter;
 
 var T = new Twit({
     "consumer_key": twitterCredentials["consumer_key"],
@@ -14,12 +14,12 @@ var T = new Twit({
 module.exports = { 
 
   // getTweets: Function that gets the 'n' most recent tweets given a query string and a number n
-  getTweets: function(query, number) {
+  getTweets: function(query, number, callback) {
     T.get('search/tweets', {q: query, count: number}, callback);
   },
 
   // streamTweets: Function that streams tweets with a location or geocode provided
-  streamTweets: function(query) {
+  streamTweets: function(query, callback) {
     var stream = T.streamTweets('statuses/filter', {track: query});
     stream.on('tweet', callback);
   }
