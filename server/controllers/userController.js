@@ -17,17 +17,19 @@ var signUp = function(userData, callback){
     var sendBack = (err) ? err : userInfo;
     callback(sendBack);
   });
-}
+};
 
 // Expecting User data. 
 // Is someother file going to pass me the data or should I have another query to find the user.
 // If a session is persisting
 // This is going to add data to the array
-var addFavorite = function(userID, data, callback){
-  userID.update({_id: userID}, {$push: {favorites: data}}, function(err, numAffected){
-    if(numAffected.length === 1){
-      callback();
+var addFavorite = function(twitterId, data, callback){
+  User.update({username: twitterId}, {$push: {favorites: data}}, function(err, numAffected){
+    if (err) {
+      console.log('Error with updating data');
+      throw new Error(err);
     }
+      callback(numAffected);
   });
 };
 

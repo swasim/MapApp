@@ -1,4 +1,5 @@
-var UserSchema = new Schema({
+var mongoose = require('mongoose');
+var UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -18,7 +19,7 @@ var UserSchema = new Schema({
   favorites: [String],
 
   searchHistory: [String]
-})
+});
 
 // This should connect to the users collection
-module.exports = new UserSchema('users', UserSchema);
+module.exports = mongoose.model('users', UserSchema);

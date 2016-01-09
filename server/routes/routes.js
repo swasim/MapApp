@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var twitterApiController = require('../controllers/twitterApiController');
+var twitterApiController = require('../controllers/twitterApiController.js');
+var UserController = require('../controllers/userController.js');
 
 /* GET Request for index page. */
 router.get('/', function(req, res, next) {
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 // Handle GET request to Twitter API
 router.get('/api/tweets/:category', function(req, res) {
-  console.log('Received query from client:', req.params);
+  console.log('Received GET request from client:', req.params);
   // Using req.query, provide the query by client and the number of tweets to get
   twitterApiController.getTweets(req.params.category, 10, function(err, data) {
     // ** Reject data that doesn't have a location ** !!! Need to do this
@@ -22,6 +23,17 @@ router.get('/api/tweets/:category', function(req, res) {
     } else {
       res.json(data);
     }
+  });
+
+});
+
+// Handle PUT request to /api/users
+router.put('/api/users/:username', function(req, res) {
+  console.log('Recevied PUT request from client', req.body);
+  var favorites = req.body.favorites;
+  UserController.addFavorite(req.params.username, favorites, function(response) {
+    console.log('Successfully updated favorites');
+    res.sendStatus(200);
   });
 
 });
