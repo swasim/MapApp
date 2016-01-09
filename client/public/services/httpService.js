@@ -1,4 +1,4 @@
-app.service('httpService', function ($http) {
+app.service('httpService', ['$http', function ($http) {
 
   this.signUp = function (username, password, email) {
 
@@ -14,7 +14,7 @@ app.service('httpService', function ($http) {
       }, function (error) {
         //error
         console.log(error);
-      })
+      });
   }
 
-})
+}]);
