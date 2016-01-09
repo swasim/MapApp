@@ -19,18 +19,22 @@
  <body ng-controller="mapsPageController">
     <nav>
       <ul class='navigation'>
-        <li><a href="#">home</a></li>
+        <li><a href="#" ng-model="hone">home</a></li>
         <li><a href="#">map</a></li>  
         <li><a href="#/signup">sign up</a></li>
         <li><a href="#">sign out</a></li>  
       </ul>
     </nav>
 
-    <form>
-      <input type="text" ng-model="firstInputField" placeholder="placeholder1"></input>
-      <input type="text" ng-model="secondInputField" placeholder="placeholder2"></input>
+    <form ng-submit="submitSearch()">
+      <input type="text" ng-model="searchField" placeholder="search"></input>
       <button type="submit">send</button>
     </form>
+    <form ng-submit="favoriteSubmit()">
+      <input type="text" ng-model="favoriteField" placeholder="save to favorites"></input>
+      <button type="submit">send</button>
+    </form>
+
 
     <!--ui view will be inserted below-->
     <div ui-view></div>
@@ -46,5 +50,6 @@
   <script src="client/directives/customDirectives.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?callback=angular.noop"></script>
   <script src="client/public/services/httpService.js"></script>
+  <script src="client/public/controllers/mainPageController.js"></script>
 
 </html> 
