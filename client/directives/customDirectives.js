@@ -18,7 +18,7 @@ renderMap.directive('renderMap', function(){
       };
       
       // inititialize the map
-      function initMap() {
+      var initMap = function() {
           if (map === void 0) {
               map = new google.maps.Map(element[0], mapOptions);
           }
