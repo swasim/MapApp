@@ -1,7 +1,6 @@
 var app = angular.module('app', ['signup', 'ui.router'])
   .controller('mapsPageController', ['$scope', '$http', function ($scope, $http){
 
-
   }])
 
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -10,8 +9,8 @@ var app = angular.module('app', ['signup', 'ui.router'])
 
     $stateProvider
       .state('start', {
-        url: '/signin',
+        url: '/signup',
         templateUrl: 'client/views/signup.html', //signup
-        controller: "signupController"
+        controller: 'signupController'
       })
   })
