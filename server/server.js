@@ -14,6 +14,8 @@ var port = process.env.PORT || 3000;
 var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + KEYS.user + ':' + KEYS.password + '@ds039095.mongolab.com:39095/users-tweets';
 mongoose.connect(mapDB);
 
+
+
 // Setup app and routing
 var app = express();
 
@@ -28,8 +30,12 @@ app.use(express.static(path.join(__dirname, '../')));
 
 app.use('/', routes);
 
-app.listen(port);  
 
-console.log('App listening on ' + port);
+
+
+app.listen(port, function(){
+  console.log('App listening on ' + port);  
+});  
+
 
 module.exports = app;
