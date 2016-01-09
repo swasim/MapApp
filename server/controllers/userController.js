@@ -8,7 +8,6 @@ var signIn = function(queryData, callback){
   });
 };
 
-
 // Adding a new user to the database
 var signUp = function(userData, callback){
   var userObject = new User(userData);
