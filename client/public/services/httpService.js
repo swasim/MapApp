@@ -1,4 +1,4 @@
-app.service('signupService', function ($http) {
+app.service('httpService', function ($http) {
 
   this.signUp = function (username, password, email) {
 
@@ -8,11 +8,12 @@ app.service('signupService', function ($http) {
       email : email
     };
 
-    return $http.post("/newUser", signupUser)//newUser is a placeholder
+    return $http.post("/api/users", signupUser)//newUser is a placeholder
       .then(function (success) {
         return success.body;
       }, function (error) {
-        //bad post
+        //error
+        console.log(error);
       })
   }
 

@@ -1,9 +1,9 @@
 angular.module('signup', [])
-  .controller('signupController', ['$scope', 'signupService', function ($scope, signupService) {
+  .controller('signupController', ['$scope', 'httpService', function ($scope, httpService) {
 
     $scope.sendUserInfo = function () {
       
-      signupService.signUp($scope.username, $scope.password, $scope.email)
+      httpService.signUp($scope.username, $scope.password, $scope.email)
     
     }
 
