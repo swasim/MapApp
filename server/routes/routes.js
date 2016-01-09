@@ -8,8 +8,4 @@ router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '../../client/views/index.html'));
 });
 
-router.get('/signup', function(){
-
-});
-
 module.exports = router;
