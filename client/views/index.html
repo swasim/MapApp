@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html ng-app="app">
   <head>
-    <link rel="stylesheet" href="client/assets/stylesheets/styles.css"></link>
-  </head>
-  <body ng-controller="mapsPageController">
+    <link rel="stylesheet" href="client/assets/stylesheets/styles.css"></link>    
+    <style>
 
+      #map {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 750px;
+        background-color: #ddd;
+        margin-top: 20px;
+      }
+    </style>
+
+  </head>
+
+ <body ng-controller="mapsPageController">
     <nav>
       <ul class='navigation'>
         <li><a href="#">home</a></li>
@@ -22,12 +34,17 @@
 
     <!--ui view will be inserted below-->
     <div ui-view></div>
-    <!--ui view inserterted above-->
-
+    <!--render map tag linking to custom directive -->
+    <render-map id="map"></render-map>
+  
   </body>
+
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="client/app.js"></script>
   <script src="client/public/controllers/signup.js"></script>
+  <script src="client/directives/customDirectives.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=angular.noop"></script>
   <script src="client/public/services/httpService.js"></script>
+
 </html> 

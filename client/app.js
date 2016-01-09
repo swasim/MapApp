@@ -1,4 +1,4 @@
-var app = angular.module('app', ['signup', 'ui.router'])
+var app = angular.module('app', ['signup', 'ui.router', 'renderMap'])
   .controller('mapsPageController', ['$scope', '$http', function ($scope, $http){
 
   }])
