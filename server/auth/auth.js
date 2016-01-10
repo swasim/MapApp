@@ -1,73 +1,43 @@
+var passport = require("passport");
+var TwitterStrategy =  require("passport-twitter").Strategy;
+var KEYS = require('../../config.js');
+var mongoose = require('mongoose');
+var User = require('../models/userModel.js');
 
+module.exports = {
+  initialize: function() {
 
+    var strategyData = {
+      consumerKey: KEYS.twitter["consumer_key"],
+      consumerSecret: KEYS.twitter["consumer_secret"],
+      callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    };
 
+    passport.serializeUser(function(user, cb) {
+      cb(null, user);
+    });
 
-// var passport = require("passport");
-// var session = require('express-session');
-// var twitterStrategy =  require("passport-twitter").Strategy;
-// var twitterCredentials = require("../../config.js").twitter;
+    passport.deserializeUser(function(obj, cb) {
+      cb(null, obj);
+    });
 
-// Just a basic server
-// var express = require('express');
-// var app = express();
-// var port = process.env.PORT || 3275 ;
-// app.listen(port, function(){
-//   console.log("Listening on 127.0.0.1:" + port);
-// });
+    var twitterCallback =  function(token, tokenSecret, profile, done) {
+      User.findOneAndUpdate(
+        {username: profile.username},
+        {$setOnInsert: { username: profile.username, favorites: [], searchHistory: []}},
+        { new: true, upsert:true}, //return new doc if one is upserted and insert the document if it does not exist
+        function(err, data) { 
+          if(err) {
+            console.log(err);
+          }
+        }
+      );
+      return done(null, profile);
+    };
 
-
-// var checkAuth = function(req, res, next){
-//   if(req.session.user){
-//     next();
-//   } else {
-//     req.session.error = "Access Denied";
-//     res.redirect('/auth/twitter');
-//   }
-// };
-
-
-// MiddleWare
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(session({
-//   secret:'Keyboard Cat',
-//   saveUninitialized: false,
-//   resave: false
-// }));
-
-
-// Add these keys to process.Env
-
-
-
-var strategyData = {
-  consumerKey:twitterCredentials["consumer_key"],
-  consumerSecret: twitterCredentials["consumer_secret"],
-  callbackURL: "http://127.0.0.1:3275/login/callback"
+    passport.use(new TwitterStrategy(strategyData, twitterCallback));
+  }
 };
-
-
-var twitterCallback =  function(token, tokenSecret, profile, done) {
-  // User.findOrCreate({ username: profile.id }, function (err, user) {
-  //   return done(err, user);
-  // });
-  console.log(profile);
-  return done(profile);
-}
-
-passport.use(new TwitterStrategy(strategyData, twitterCallback));
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-
-
-
-
 
 
 

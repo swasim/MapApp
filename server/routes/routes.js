@@ -5,23 +5,28 @@ var path = require('path');
 var twitterApiController = require('../controllers/twitterApiController.js');
 var UserController = require('../controllers/userController.js');
 var passport = require('passport');
-// var Auth = require('../auth/auth.js');
 
-//Auth.checkAuth(req,res,next);
+var isLoggedIn = function(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/auth/twitter');
+};
+
 /* GET Request for index page. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
     res.sendFile(path.join(__dirname, '../../client/views/index.html'));
 });
 
 // Login Route for O-Auth
-router.get('/login',function (req, res, next){
-  console.log('Wow');
-  passport.authenticate('twitter');
-});
+router.get('/auth/twitter', passport.authenticate('twitter'));
 
 // Login Callback From Twitters O-Auth
-router.get('/login/callback', 
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
+router.get('/auth/twitter/callback', 
+  passport.authenticate('twitter', { failureRedirect: '/auth/twitter' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');

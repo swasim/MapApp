@@ -23,38 +23,9 @@ var port = process.env.PORT || 3000;
 var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + KEYS.user + ':' + KEYS.password + '@ds039095.mongolab.com:39095/users-tweets';
 mongoose.connect(mapDB);
 
-
-
-/************************************************/
-// TESTING PURPOSES ONLY 
-// SETTING UP AUTHENTICATION 
-// MOVE TO DIFFERENT FILE IF TIME
-
-var strategyData = {
-  consumerKey: KEYS.twitter["consumer_key"],
-  consumerSecret: KEYS.twitter["consumer_secret"],
-  callbackURL: "http://127.0.0.1:3000/login/callback"
-};
-
-
-var twitterCallback =  function(token, tokenSecret, profile, done) {
-  // User.findOrCreate({ username: profile.id }, function (err, user) {
-  //   return done(err, user);
-  // });
-  console.log(profile);
-  return done(profile);
-}
-
-passport.use(new TwitterStrategy(strategyData, twitterCallback));
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-/************************************************/
-
+// Set Up Authorization 
+var Auth = require('./auth/auth.js');
+Auth.initialize();
 
 
 // Setup app and routing
