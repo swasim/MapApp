@@ -2,7 +2,7 @@ var passport = require("passport");
 var TwitterStrategy =  require("passport-twitter").Strategy;
 
 
-if(!process.env.DB_KEY){
+if(!process.env.CONSUMER_KEY){
   var KEYS = require('../../config.js');
 }
 
