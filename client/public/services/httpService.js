@@ -8,7 +8,8 @@ app.service('httpService', ['$http', function ($http) {
       email : email
     };
 
-    return $http.post("/api/users", signupUser)//newUser is a placeholder
+    //signing up a new user
+    return $http.post("/api/users", signupUser)
       .then(function (success) {
         return success.body;
       }, function (error) {
@@ -17,6 +18,7 @@ app.service('httpService', ['$http', function ($http) {
       });
   };
 
+  //adding favorite to users list of favorites
   this.sendFavorite = function (favorite) {
 
     var addToFavorites = {
@@ -29,12 +31,29 @@ app.service('httpService', ['$http', function ($http) {
       }, function (error) {
         return error;
       });
-  }
+  };
 
+  //login functionality
+  this.login = function () {
+    $http.get('/login')
+      .then(function (success) {
+        return success;
+      }, function (error) {
+        return error;
+      });
+  };
 
-  this.getTweetsOntoMap = function (searchTerm) {
+  //getting tweets
+  this.getTweets = function (searchTerm) {
 
     var getRequestGoesTo = '/api/tweets/' + searchTerm;
+
+    return $http.get(getRequestGoesTo)
+      .then(function (success) {
+        return success.data;
+      }, function (error) {
+        return error;
+      });
     
     // return $http.get(getRequestGoesTo)
     //   .then(function (tweetData) {
