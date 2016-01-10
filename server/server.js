@@ -4,6 +4,13 @@ var path = require('path');
 var favicon = require('favicon');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require("passport");
+var session = require('express-session');
+var TwitterStrategy =  require("passport-twitter").Strategy;
+
+var routes = require('./routes/routes.js');
+
+
 // **Important password and keys **
 var KEYS = require('../config.js');
 
@@ -14,10 +21,23 @@ var port = process.env.PORT || 3000;
 var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + KEYS.user + ':' + KEYS.password + '@ds039095.mongolab.com:39095/users-tweets';
 mongoose.connect(mapDB);
 
+// Set Up Authorization 
+var Auth = require('./auth/auth.js');
+Auth.initialize();
+
+
 // Setup app and routing
 var app = express();
 
-var routes = require('./routes/routes.js');
+// Use Session Middleware
+app.use(session({
+  secret:'Keyboard Cat',
+  saveUninitialized: false,
+  resave: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Set up middleware stack
 
@@ -26,6 +46,8 @@ var routes = require('./routes/routes.js');
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../')));
 
+
+/* Routes */
 app.use('/', routes);
 
 app.listen(port);  
