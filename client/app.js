@@ -8,9 +8,15 @@ var app = angular.module('app', ['signup', 'ui.router', 'renderMap'])
     $urlRouterProvider.otherwise('/'); 
 
     $stateProvider
-      .state('start', {
+      .state('signup', {
         url: '/signup',
-        templateUrl: 'client/views/signup.html', //signup
+        templateUrl: 'client/views/signup.html',
         controller: 'signupController'
+      })
+
+    $stateProvider
+      .state('maps', {
+        url:'/',
+        templateUrl: 'client/views/mainPageSearch.html'
       })
   })
