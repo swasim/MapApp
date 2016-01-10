@@ -44,7 +44,7 @@ router.get('/api/tweets/:category', function(req, res) {
 
 });
 
-// Handle PUT request to /api/users
+// Handle PUT request to /api/users (to change favorites)
 router.put('/api/users/:username', function(req, res) {
   console.log('Recevied PUT request from client', req.body);
   var favorites = req.body.favorites;
