@@ -1,6 +1,12 @@
 var passport = require("passport");
 var TwitterStrategy =  require("passport-twitter").Strategy;
-var KEYS = require('../../config.js');
+
+
+if(!process.env.DB_KEY){
+  var KEYS = require('../../config.js');
+}
+
+
 var mongoose = require('mongoose');
 var User = require('../models/userModel.js');
 

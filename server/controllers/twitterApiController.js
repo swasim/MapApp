@@ -1,7 +1,10 @@
 // Import twit npm module
 var Twit = require('twit');
 // Imports twitter credential config
-var twitterCredentials = require('../../config.js').twitter;
+
+if(!process.env.DB_KEY){
+  var twitterCredentials = require('../../config.js').twitter;
+}
 
 var T = new Twit({
     "consumer_key": process.env.CONSUMER_KEY || twitterCredentials["consumer_key"],
