@@ -12,7 +12,9 @@ var routes = require('./routes/routes.js');
 
 
 // **Important password and keys **
-var KEYS = require('../config.js');
+if(!process.env.DB_KEY){
+  var KEYS = require('../config.js');
+}
 
 // Setup server to listen on process.en.PORT delegating to port 3000
 var port = process.env.PORT || 3000;
