@@ -72,7 +72,7 @@ renderMap.directive('renderMap', function(){
              scope.tweets.data.shift();
              },true);
 
-           });   
+        });   
       };
   
   //custom directives expect a return object in the format below...
