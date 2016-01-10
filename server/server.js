@@ -19,7 +19,7 @@ if(!process.env.CONSUMER_KEY){
 // Setup server to listen on process.en.PORT delegating to port 3000
 var port = process.env.PORT || 3000;
 
-var key = process.env.DB_USER || KEYS.user;
+var key = process.env.CONSUMER_KEY || KEYS.user;
 var db_pass = process.env.DB_PASSWORD || KEYS.password;
 // ** NEED TO IMPLEMENT Setup server to listen to MongoLab URI delegating to local db 
 var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + key + ':' + db_pass + '@ds039095.mongolab.com:39095/users-tweets';
