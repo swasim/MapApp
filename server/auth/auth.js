@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var User = require('../models/userModel.js');
 
 module.exports = {
+  
   initialize: function() {
 
     var strategyData = {

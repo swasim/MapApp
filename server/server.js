@@ -11,8 +11,6 @@ var TwitterStrategy =  require("passport-twitter").Strategy;
 var routes = require('./routes/routes.js');
 
 
-
-
 // **Important password and keys **
 var KEYS = require('../config.js');
 
@@ -31,11 +29,7 @@ Auth.initialize();
 // Setup app and routing
 var app = express();
 
-
-
-
-// Create Session Middleware
-// TODO Move to own file later
+// Use Session Middleware
 app.use(session({
   secret:'Keyboard Cat',
   saveUninitialized: false,
@@ -45,14 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-
-
-
 // Set up middleware stack
-
-// O-Auth For Twitter
-
 
 /** FOR FAVICON **/
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

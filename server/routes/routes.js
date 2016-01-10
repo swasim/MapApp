@@ -32,6 +32,12 @@ router.get('/auth/twitter/callback',
     res.redirect('/');
   });
 
+// Logout Route
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/auth/twitter');
+});
+
 // Handle GET request to Twitter API
 router.get('/api/tweets/:category', function(req, res) {
   console.log('Received GET request from client:', req.params);
