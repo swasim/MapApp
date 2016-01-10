@@ -4,10 +4,10 @@ var Twit = require('twit');
 var twitterCredentials = require('../../config.js').twitter;
 
 var T = new Twit({
-    "consumer_key": twitterCredentials["consumer_key"],
-    "consumer_secret": twitterCredentials["consumer_secret"],
-    "access_token": twitterCredentials["access_token"],
-    "access_token_secret": twitterCredentials["access_token_secret"]
+    "consumer_key": process.env.CONSUMER_KEY || twitterCredentials["consumer_key"],
+    "consumer_secret": process.env.CONSUMER_SECRET || twitterCredentials["consumer_secret"],
+    "access_token": process.env.ACCESS_TOKEN || twitterCredentials["access_token"],
+    "access_token_secret": process.env.ACCESS_TOKEN_SECRET || twitterCredentials["access_token_secret"]
 });
 
 

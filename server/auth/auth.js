@@ -9,8 +9,8 @@ module.exports = {
   initialize: function() {
 
     var strategyData = {
-      consumerKey: KEYS.twitter["consumer_key"],
-      consumerSecret: KEYS.twitter["consumer_secret"],
+      consumerKey: process.env.CONSUMER_KEY || KEYS.twitter["consumer_key"],
+      consumerSecret: process.env.CONSUMER_SECRET || KEYS.twitter["consumer_secret"],
       callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
     };
 

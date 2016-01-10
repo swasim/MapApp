@@ -17,8 +17,10 @@ var KEYS = require('../config.js');
 // Setup server to listen on process.en.PORT delegating to port 3000
 var port = process.env.PORT || 3000;
 
+var key = process.env.DB_KEY || KEYS.user;
+var db_pass = process.env.DB_PASSWORD || KEYS.password;
 // ** NEED TO IMPLEMENT Setup server to listen to MongoLab URI delegating to local db 
-var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + KEYS.user + ':' + KEYS.password + '@ds039095.mongolab.com:39095/users-tweets';
+var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + key + ':' + db_pass + '@ds039095.mongolab.com:39095/users-tweets';
 mongoose.connect(mapDB);
 
 // Set Up Authorization 
