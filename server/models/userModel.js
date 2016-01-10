@@ -7,13 +7,10 @@ var UserSchema = new mongoose.Schema({
   },
   
   favorites: [String],
-<<<<<<< HEAD
 
   searchHistory: [String]
 });
-=======
-})
->>>>>>> Twitter Auth works
+
 
 // This should connect to the users collection
 module.exports = mongoose.model('users', UserSchema);
