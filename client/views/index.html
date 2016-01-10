@@ -5,7 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
   </head>
 
- <body ng-controller="mapsPageController">
+ <body>
     <nav>
       <ul class='navigation'>
         <li><a href="#">home</a></li>
@@ -17,9 +17,11 @@
     </nav>
 
     <!--ui view will be inserted below-->
-    <div ui-view></div>
+    <div ng-controller="mapsPageController">
+      <div ui-view></div>
+      <render-map id="map"></render-map>
+    </div>
     <!--render map tag linking to custom directive -->
-    <render-map id="map"></render-map>
   
   </body>
 
