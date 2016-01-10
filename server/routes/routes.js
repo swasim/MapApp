@@ -4,6 +4,7 @@ var router = express.Router();
 var path = require('path');
 var twitterApiController = require('../controllers/twitterApiController.js');
 var UserController = require('../controllers/userController.js');
+var passport = require('passport');
 // var Auth = require('../auth/auth.js');
 
 //Auth.checkAuth(req,res,next);
@@ -14,11 +15,12 @@ router.get('/', function(req, res, next) {
 
 // Login Route for O-Auth
 router.get('/login',function (req, res, next){
+  console.log('Wow');
   passport.authenticate('twitter');
 });
 
 // Login Callback From Twitters O-Auth
-app.get('/login/callback', 
+router.get('/login/callback', 
   passport.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.

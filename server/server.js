@@ -31,8 +31,8 @@ mongoose.connect(mapDB);
 // MOVE TO DIFFERENT FILE IF TIME
 
 var strategyData = {
-  consumerKey:twitterCredentials["consumer_key"],
-  consumerSecret: twitterCredentials["consumer_secret"],
+  consumerKey: KEYS.twitter["consumer_key"],
+  consumerSecret: KEYS.twitter["consumer_secret"],
   callbackURL: "http://127.0.0.1:3000/login/callback"
 };
 
