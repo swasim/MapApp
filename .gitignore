@@ -9,3 +9,8 @@ node_modules
 ### API KEYS ###
 config.js
 
+### Environment Variables ###
+.env
+Dockerfile
+docker-compose.yml
+
