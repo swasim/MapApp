@@ -12,9 +12,7 @@ var routes = require('./routes/routes.js');
 
 
 // **Important password and keys **
-console.log("HELLO");
-if(!process.env.DB_KEY){
-  console.log("hello");
+if(!process.env.CONSUMER_KEY){
   var KEYS = require('../config.js');
 }
 

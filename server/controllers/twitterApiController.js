@@ -2,7 +2,7 @@
 var Twit = require('twit');
 // Imports twitter credential config
 
-if(!process.env.DB_KEY){
+if(!process.env.CONSUMER_KEY){
   var twitterCredentials = require('../../config.js').twitter;
 }
 

@@ -3,7 +3,7 @@ var TwitterStrategy =  require("passport-twitter").Strategy;
 
 
 if(!process.env.CONSUMER_KEY){
-  var KEYS = require('../../config.js');
+  var KEYS = process.env.CONSUMER_KEY || require('../../config.js');
 }
 
 
