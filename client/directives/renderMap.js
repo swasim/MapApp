@@ -15,7 +15,17 @@ renderMap.directive('renderMap', function(){
       var mapOptions = {
           center: new google.maps.LatLng(0, 0),
           zoom: 2,
-          scrollwheel: false,
+          mapTypeControl: true,
+          mapTypeControl: true,
+            mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              position: google.maps.ControlPosition.TOP_CENTER
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER
+            },
+          scrollwheel: true,
           styles: styles
       };
       
