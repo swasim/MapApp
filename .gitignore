@@ -9,3 +9,6 @@ node_modules
 ### API KEYS ###
 config.js
 
+### .env File for deployment ###
+.env
+

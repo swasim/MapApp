@@ -13,7 +13,7 @@ var isLoggedIn = function(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/auth/twitter');
+    res.redirect('/signup');
 };
 
 /* GET Request for index page. */
@@ -98,7 +98,8 @@ router.put('/api/users/:username', function(req, res) {
 
 });
 
-router.post('/user/signup', function(req, res) {
+router.get('/signup', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../client/views/signup.html'));
 });
 
 module.exports = router;

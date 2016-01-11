@@ -1,9 +1,27 @@
-<div ng-controller="signupController" ng-submit="sendUserInfo()"> 
-  <h1>signup</h1>
-    <form>
-      <input type="text" placeholder="username" ng-model="username"></input>
-      <input type="text" placeholder="password" ng-model="password"></input>
-      <input type="text" placeholder="e-mail" ng-model="email"></input>
-      <button type="submit">submit</submit>
-    </form>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href="../../bower_components/animate.css/animate.min.css" />
+    <link rel='stylesheet' href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel='stylesheet' href="client/assets/stylesheets/signup.css" />
+  </head>
+
+  <body>
+
+      <div id='Form-Wrapper'>
+        <form>
+            <h1 class='animated fadeInUp'>Welcome</h1>
+            <h1 style='margin-bottom:50px'class='animated fadeInUp'>Visit Our App</h1>
+          
+          <div class='login-twitter'>
+            <a href="/auth/twitter">
+              <img src='http://tweetmonsters.com/images/sign_in.png' />
+            </a>
+          </div>
+
+        </form>
+
+      </div>
+
+  </body>
+</html>
