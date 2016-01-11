@@ -35,7 +35,7 @@ router.get('/auth/twitter/callback',
 // Logout Route
 router.get('/logout', function(req, res) {
   req.logout();
-  res.redirect('/auth/twitter');
+  res.redirect('/signup');
 });
 
 // Handle GET request to Twitter API
