@@ -10,7 +10,7 @@ var TwitterStrategy =  require("passport-twitter").Strategy;
 var routes = require('./routes/routes.js');
 var socketio = require('socket.io');
 var TwitterAPI = require('./controllers/twitterApiController.js');
-
+var textSearch = require('./textSearch.js');
 
 // **Important password and keys **
 if(!process.env.CONSUMER_KEY){
@@ -24,6 +24,7 @@ var key = process.env.DB_USER || KEYS.user;
 var db_pass = process.env.DB_PASSWORD || KEYS.password;
 //init socketSTream to null
 var stream = null;
+var twitterTopic ;
 // ** NEED TO IMPLEMENT Setup server to listen to MongoLab URI delegating to local db 
 var mapDB = process.env.MONGOLAB_URI || 'mongodb://' + key + ':' + db_pass + '@ds039095.mongolab.com:39095/users-tweets';
 mongoose.connect(mapDB);
@@ -66,43 +67,63 @@ var io = socketio.listen(server);
 
 // Create web socket connection
 io.sockets.on('connection', function(socket) {
- socket.on('tweet flow', function(topic) {
-   console.log(topic);
+ socket.on('tweet flow', function() {
+
    if (stream === null) {
      stream = true;
      console.log('connected');
-     TwitterAPI.streamTweets(topic, function(data) {
-       if(data.coordinates){
-         if(data.coordinates!==null){
-          var tweetObject = data;
 
-         var scrubbedTweetObject = {
-              name: tweetObject.user['name'],
-              handle: tweetObject.user['screen_name'],
-              verified: tweetObject.user['verified'],
-              createdAt: tweetObject.user['created_at'],
-              description: tweetObject.user['description'], 
-              url: tweetObject.user['url'],
-              followers_count: tweetObject.user['followers_count'], 
-              friends_count: tweetObject.user['friends_count'],
-              timezone: tweetObject.user['time_zone'],
-              coordinates: tweetObject['coordinates'],
-              geo: tweetObject['geo'],
-              place: tweetObject['place'],
-              tweetText: tweetObject['text'],
-              tweetTime: tweetObject['created_at'],
-              retweet_count: tweetObject['retweet_count'],
-              favorite_count: tweetObject['favorite_count']
-           };
-           socket.broadcast.emit("tweet-stream", scrubbedTweetObject);
-           socket.emit("tweet-stream", scrubbedTweetObject);
-         }
-       }
-     });
-   }
- });
+      TwitterAPI.streamTweets(twitterTopic, function(data) {
+        if(data.coordinates){
+          if(data.coordinates !== null){
+            
+            var tweetObject = data;
+            var topicExists;
 
- socket.emit("connected");
+            if(twitterTopic !== undefined) {
+              topicExists = textSearch.findTwitterTopic(twitterTopic, tweetObject.text);
+            }
+
+            if (twitterTopic === undefined || topicExists === true) {
+              var scrubbedTweetObject = {
+                name: tweetObject.user['name'],
+                handle: tweetObject.user['screen_name'],
+                verified: tweetObject.user['verified'],
+                createdAt: tweetObject.user['created_at'],
+                description: tweetObject.user['description'], 
+                url: tweetObject.user['url'],
+                followers_count: tweetObject.user['followers_count'], 
+                friends_count: tweetObject.user['friends_count'],
+                timezone: tweetObject.user['time_zone'],
+                coordinates: tweetObject['coordinates'],
+                geo: tweetObject['geo'],
+                place: tweetObject['place'],
+                tweetText: tweetObject['text'],
+                tweetTime: tweetObject['created_at'],
+                retweet_count: tweetObject['retweet_count'],
+                favorite_count: tweetObject['favorite_count']
+              };
+
+              // emit to client and send back tweet object
+              socket.broadcast.emit("tweet-stream", scrubbedTweetObject);
+              socket.emit("tweet-stream", scrubbedTweetObject);
+
+              socket.on('filter', function(topic) {
+                twitterTopic = topic;
+              });
+            }
+
+            // Tweet Object that has been scrubbed for relevant data 
+
+          }
+        }
+      });
+    }
+  });
+  socket.on("disconnect", function() {
+    console.log('disconnected');
+  });
+  socket.emit("connected");
 });
 
 module.exports = app;
