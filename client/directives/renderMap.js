@@ -41,9 +41,9 @@ renderMap.directive('renderMap', function(){
               var pinToRemove = mapMarkers.shift();
               pinToRemove.setMap(null);
             };
-
+            console.log(tweet);
             //determine map marker location/shape for each tweet
-             var tweetLocation = new google.maps.LatLng(tweet["location"][0],tweet["location"][1]);
+             var tweetLocation = new google.maps.LatLng(tweet["coordinates"]["coordinates"][1],tweet["coordinates"]["coordinates"][0]);
              var tweetMarker = new google.maps.Marker({
                position: tweetLocation,
                map: map

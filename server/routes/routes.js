@@ -42,13 +42,14 @@ router.get('/logout', function(req, res) {
 router.get('/api/tweets/:category', function(req, res) {
   console.log('Received GET request from client:', req.params);
   // Using req.query, provide the query by client and the number of tweets to get
-  twitterApiController.getTweets(req.params.category, 10, function(err, data) {
+  twitterApiController.getTweets(req.params.category, 1000, function(err, data) {
     // ** Reject data that doesn't have a location ** !!! Need to do this
     if (err) {
       console.log('Error getting data from Twttier API');
       throw new Error(err);
 
     } else {
+      console.log(data)
       //create an empty scrubbedTweetData array.
       var scrubbedTweetData = [];
       //loop through each tweetObject returned from the twitter API...
@@ -73,10 +74,12 @@ router.get('/api/tweets/:category', function(req, res) {
              retweet_count: tweetObject['retweet_count'],
              favorite_count: tweetObject['favorite_count']
           };
+          console.log(scrubbedTweetObject);
           //and push the scrubbed object to scrubbedTweetData.
           scrubbedTweetData.push(scrubbedTweetObject);
         }
       });
+    
       //once data has been scrubbed, send it back up to the client side!
       res.json(scrubbedTweetData);
     }
