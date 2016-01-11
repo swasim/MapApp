@@ -21,7 +21,6 @@ module.exports = {
   // streamTweets: Function that streams tweets with a location or geocode provided
   streamTweets: function(query, callback) {
     var stream = T.stream('statuses/filter', {'locations':['-180','-90','180','90']});
-
     stream.on('tweet', callback);
   }
 };
