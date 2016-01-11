@@ -9,7 +9,9 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
     httpService.getTweets($scope.searchField)
       .then(function (success) {
         var tweet = success;
-        $scope.tweets.data.push(tweet);
+        for(var i = 0; i < tweet.length; i++) {
+          $scope.tweets.data.push(tweet[i]);
+        }
       });
   };
 
