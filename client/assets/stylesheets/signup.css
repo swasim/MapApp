@@ -1,0 +1,33 @@
+body {
+  background-color: #222;
+}
+
+#Form-Wrapper {
+  border:3px solid white;
+  border-radius: 10px;
+  width:500px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 75px;
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
+
+form {
+  width:400px;
+  margin:0 auto;
+}
+
+form h1 {
+  margin-top: 27px;
+  margin-bottom: 31px;
+  text-align: center;
+  color:white;
+}
+
+a {
+  display:block;
+  width: 346px;
+  margin-left:auto;
+  margin-right: auto;
+}

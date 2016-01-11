@@ -99,7 +99,7 @@ router.put('/api/users/:username', function(req, res) {
 });
 
 router.get('/signup', function(req, res) {
-  res.sendFile('signup.html', {root: "client/views"});
+  res.sendFile(path.join(__dirname, '../../client/views/signup.html'));
 });
 
 module.exports = router;
