@@ -14,10 +14,4 @@ var app = angular.module('app', ['signup', 'ui.router', 'renderMap'])
         controller: 'signupController'
       })
 
-    $stateProvider
-      .state('search', {
-        url:'/',
-        templateUrl: 'client/views/mainPageSearch.html',
-        controller: 'searchController'
-      })
   })
