@@ -1,8 +1,13 @@
-app.controller('mapsPageController', ['$scope', '$http', 'httpService', function ($scope, $http, httpService) {
+app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', function ($scope, $http, httpService, $sce) {
 
-  $scope.tweets = {
+  //contains data for ALL incoming tweets
+  $scope.allTweets = {
     data: []
   };
+
+  //contains data for ONLY quality/relevant tweets
+  $scope.relevantTweets = [];
+
 
   $scope.submitSearch = function () {
     console.log($scope.searchField)
@@ -10,7 +15,7 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
       .then(function (success) {
         var tweet = success;
         for(var i = 0; i < tweet.length; i++) {
-          $scope.tweets.data.push(tweet[i]);
+          $scope.allTweets.data.push(tweet[i]);
         }
       });
   };
@@ -21,18 +26,48 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
 
 
   var onInit = function() {
+    /////////////////////////////////////////////ASSUMPTIONS////////////////////////////////////////////////////
+    
+    //establish tweet relevancy criteria; 
+    var numOfFollowersToBeRelevant = 2500;
+    var numOfRetweetsToBeRelevant = 10; 
+    //establish relevant tweet limit;
+    var maxNumOfRelevantTweetsAllowed = 15;
 
-    // var topic = 'golden';
-
+    ////////////////////////////////////////////SOCKET CONNECTION///////////////////////////////////////////////
+    
     if(io !== undefined) {
+      //connects to socket
       var socket = io.connect();
-
+      //uses socket to listen for incoming tweet stream 
       socket.on('tweet-stream', function (data) {
 
-        // THIS COULD BE IN A SERVICE
-        $scope.tweets.data.push(data);
-        // console.log($scope.tweets.data.length);
-        // console.log('tweet stream client');
+        ///////////////////////////////////DETERMINE RELEVANCE/QUALITY OF TWEET//////////////////////////////////
+        //set relevant parameters
+        var numOfFollowers = data.followers_count;
+        var numOfRetweets = data.retweet_count;
+        var verifiedAccount = data.verified;
+        var tweetString = "";
+        //if incoming tweet meets relevancy criteria...
+        if((numOfFollowers >= numOfFollowersToBeRelevant) || (numOfRetweets >= numOfRetweetsToBeRelevant)){
+          //then check to see how many relevant tweets are already being displayed on page; if max limit 
+          //has already been reached then pop last item out of relevantsTweets array
+          if($scope.relevantTweets.length === maxNumOfRelevantTweetsAllowed){
+            $scope.relevantTweets.pop();
+          }
+          //for all incoming tweets that match criteria, create a tweetString that contains most relevant info for tweet
+          //(e.g. handle, content, and time);
+          tweetString = "<b>"+data.handle+": <b>" + data.tweetText +  " <i>"+data.tweetTime+"</i>";
+          //make sure tweetString can be accepted by DOM as html
+          tweetString = $sce.trustAsHtml(tweetString);
+          //add latest tweetString to the beginning of the relevantTweets array;
+          $scope.relevantTweets.unshift(tweetString);
+          console.log("relevant tweets arr -->", $scope.relevantTweets.length);
+        }
+
+        ///////////////////////////////////PLACE ALL INCOMING TWEETS ON MAP///////////////////////////////////////
+        $scope.allTweets.data.push(data);
+
         var tweetLocation = new google.maps.LatLng(data["coordinates"]["coordinates"][1], data["coordinates"]["coordinates"][0]);
         var tweetMarker = new google.maps.Marker({
            position: tweetLocation,
@@ -54,7 +89,6 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
          });
         // //set tweet on map...
         tweetMarker.setMap(window.map, tweetLocation, tweetContent);
-        //this could be in a service
 
       })
 
