@@ -25,7 +25,7 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
     // var topic = 'golden';
 
     if(io !== undefined) {
-      var socket = io.connect("http://localhost:3000");
+      var socket = io.connect();
 
       socket.on('tweet-stream', function (data) {
 
