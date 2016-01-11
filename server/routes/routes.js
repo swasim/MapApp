@@ -42,14 +42,14 @@ router.get('/logout', function(req, res) {
 router.get('/api/tweets/:category', function(req, res) {
   console.log('Received GET request from client:', req.params);
   // Using req.query, provide the query by client and the number of tweets to get
-  twitterApiController.getTweets(req.params.category, 1000, function(err, data) {
+  twitterApiController.getTweets(req.params.category, 100, function(err, data) {
     // ** Reject data that doesn't have a location ** !!! Need to do this
     if (err) {
       console.log('Error getting data from Twttier API');
       throw new Error(err);
 
     } else {
-      console.log(data)
+      console.log(data.statuses)
       //create an empty scrubbedTweetData array.
       var scrubbedTweetData = [];
       //loop through each tweetObject returned from the twitter API...
@@ -58,21 +58,21 @@ router.get('/api/tweets/:category', function(req, res) {
         if(tweetObject['geo'] || tweetObject['coordinates']){
           //then create a scrubbedTweetObject containing most salient info...
           var scrubbedTweetObject = {
-             name: tweetObject.user['name'],
-             handle: tweetObject.user['screen_name'],
-             verified: tweetObject.user['verified'],
-             createdAt: tweetObject.user['created_at'],
-             description: tweetObject.user['description'], 
-             url: tweetObject.user['url'],
-             followers_count: tweetObject.user['followers_count'], 
-             friends_count: tweetObject.user['friends_count'],
-             timezone: tweetObject.user['time_zone'],
+             // name: tweetObject.user['name'],
+             // handle: tweetObject.user['screen_name'],
+             // verified: tweetObject.user['verified'],
+             // createdAt: tweetObject.user['created_at'],
+             // description: tweetObject.user['description'], 
+             // url: tweetObject.user['url'],
+             // followers_count: tweetObject.user['followers_count'], 
+             // friends_count: tweetObject.user['friends_count'],
+             // timezone: tweetObject.user['time_zone'],
              coordinates: tweetObject['coordinates'],
-             geo: tweetObject['geo'],
-             place: tweetObject['place'],
-             tweetText: tweetObject['text'],
-             retweet_count: tweetObject['retweet_count'],
-             favorite_count: tweetObject['favorite_count']
+             // geo: tweetObject['geo'],
+             // place: tweetObject['place'],
+             // tweetText: tweetObject['text'],
+             // retweet_count: tweetObject['retweet_count'],
+             // favorite_count: tweetObject['favorite_count']
           };
           console.log(scrubbedTweetObject);
           //and push the scrubbed object to scrubbedTweetData.
