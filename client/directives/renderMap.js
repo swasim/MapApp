@@ -41,11 +41,11 @@ renderMap.directive('renderMap', function(){
       initMap();
 
       //set up a watch on scope, connecting the custom renderMap directive to the mapsPageController; this $watch.collection
-      //will be watching for changes in the tweets.data variable defined in mapsPageController
-      scope.$watchCollection('tweets.data', function(newValue, oldValue){
+      //will be watching for changes in the allTweets.data variable defined in mapsPageController
+      scope.$watchCollection('allTweets.data', function(newValue, oldValue){
           // console.log(newValue, oldValue);
           // //go through each NEW tweet and attribute its text/location attributes to a pin on the map
-          //  angular.forEach(scope.tweets.data, function(tweet){
+          //  angular.forEach(scope.allTweets.data, function(tweet){
           //   //check if mapMarkers length is greater than or equal to marker limit; if so, remove oldest pin;
           //   //DOUBLE CHECK THAT THIS REFERENCES CORRECTLY
           //   if(mapMarkers.length >= markerLimit){
@@ -79,8 +79,8 @@ renderMap.directive('renderMap', function(){
           //    tweetMarker.setMap(map, tweetLocation, tweetContent);
           //    //add new tweets to mapMarkers array and setMap
           //    mapMarkers.push(tweetMarker);
-          //    //removing last proessed tweet info from scope.tweets.data
-          //    scope.tweets.data.shift();
+          //    //removing last proessed tweet info from scope.allTweets.data
+          //    scope.allTweets.data.shift();
           //    },true);
 
         });   
