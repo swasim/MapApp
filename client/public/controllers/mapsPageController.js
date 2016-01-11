@@ -5,9 +5,9 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', function
     };
 
     $scope.submitSearch = function () {
-      //for Akash: $scope.searchField the result of the search in index.html
       httpService.getTweets($scope.searchField)
-        .then(function (success) {
+        .then(function (data) {
+          $scope.tweets.data.push(data);
         });
     };
 
