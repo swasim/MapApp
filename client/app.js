@@ -15,8 +15,9 @@ var app = angular.module('app', ['signup', 'ui.router', 'renderMap'])
       })
 
     $stateProvider
-      .state('maps', {
+      .state('search', {
         url:'/',
-        templateUrl: 'client/views/mainPageSearch.html'
+        templateUrl: 'client/views/mainPageSearch.html',
+        controller: 'searchController'
       })
   })
