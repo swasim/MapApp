@@ -72,7 +72,6 @@ io.sockets.on('connection', function(socket) {
      stream = true;
      console.log('connected');
      TwitterAPI.streamTweets(topic, function(data) {
-       console.log(data);
        if(data.coordinates){
          if(data.coordinates!==null){
           var tweetObject = data;
