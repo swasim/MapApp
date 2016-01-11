@@ -54,7 +54,7 @@ router.get('/api/tweets/:category', function(req, res) {
       //loop through each tweetObject returned from the twitter API...
       data.statuses.forEach(function(tweetObject){
         //if tweet object has a 'truthy' time_zone or coordinates property... 
-        if(tweetObject.user['time_zone'] || tweetObject['coordinates'])
+        if(tweetObject['geo'] || tweetObject['coordinates']){
           //then create a scrubbedTweetObject containing most salient info...
           var scrubbedTweetObject = {
              name: tweetObject.user['name'],
@@ -67,12 +67,15 @@ router.get('/api/tweets/:category', function(req, res) {
              friends_count: tweetObject.user['friends_count'],
              timezone: tweetObject.user['time_zone'],
              coordinates: tweetObject['coordinates'],
+             geo: tweetObject['geo'],
+             place: tweetObject['place'],
              tweetText: tweetObject['text'],
              retweet_count: tweetObject['retweet_count'],
              favorite_count: tweetObject['favorite_count']
           };
           //and push the scrubbed object to scrubbedTweetData.
           scrubbedTweetData.push(scrubbedTweetObject);
+        }
       });
       //once data has been scrubbed, send it back up to the client side!
       res.json(scrubbedTweetData);
