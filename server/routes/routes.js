@@ -49,7 +49,6 @@ router.get('/api/tweets/:category', function(req, res) {
       throw new Error(err);
 
     } else {
-      console.log(data)
       res.json(data);
     }
   });
