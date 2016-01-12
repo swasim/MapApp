@@ -58,21 +58,21 @@ router.get('/api/tweets/:category', function(req, res) {
         if(tweetObject['geo'] || tweetObject['coordinates']){
           //then create a scrubbedTweetObject containing most salient info...
           var scrubbedTweetObject = {
-             // name: tweetObject.user['name'],
-             // handle: tweetObject.user['screen_name'],
-             // verified: tweetObject.user['verified'],
-             // createdAt: tweetObject.user['created_at'],
-             // description: tweetObject.user['description'], 
-             // url: tweetObject.user['url'],
-             // followers_count: tweetObject.user['followers_count'], 
-             // friends_count: tweetObject.user['friends_count'],
-             // timezone: tweetObject.user['time_zone'],
+             name: tweetObject.user['name'],
+             handle: tweetObject.user['screen_name'],
+             verified: tweetObject.user['verified'],
+             createdAt: tweetObject.user['created_at'],
+             description: tweetObject.user['description'], 
+             url: tweetObject.user['url'],
+             followers_count: tweetObject.user['followers_count'], 
+             friends_count: tweetObject.user['friends_count'],
+             timezone: tweetObject.user['time_zone'],
              coordinates: tweetObject['coordinates'],
-             // geo: tweetObject['geo'],
-             // place: tweetObject['place'],
-             // tweetText: tweetObject['text'],
-             // retweet_count: tweetObject['retweet_count'],
-             // favorite_count: tweetObject['favorite_count']
+             geo: tweetObject['geo'],
+             place: tweetObject['place'],
+             tweetText: tweetObject['text'],
+             retweet_count: tweetObject['retweet_count'],
+             favorite_count: tweetObject['favorite_count']
           };
           console.log(scrubbedTweetObject);
           //and push the scrubbed object to scrubbedTweetData.

@@ -16,11 +16,13 @@ var textSearch = require('./textSearch.js');
 if(!process.env.CONSUMER_KEY){
   var KEYS = require('../config.js');
 }
+
 // Setup server to listen on process.en.PORT delegating to port 3000
 var port = process.env.PORT || 3000;
 var key = process.env.DB_USER || KEYS.user;
 var db_pass = process.env.DB_PASSWORD || KEYS.password;
-//init socketSTream to null
+
+//init socketStream to null
 var stream = null;
 var twitterTopic ;
 // ** NEED TO IMPLEMENT Setup server to listen to MongoLab URI delegating to local db 
@@ -46,9 +48,6 @@ app.use(passport.session());
 
 
 // Set up middleware stack
-
-/** FOR FAVICON **/
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../')));
 
@@ -70,7 +69,7 @@ io.sockets.on('connection', function(socket) {
    if (stream === null) {
      stream = true;
      console.log('connected');
-
+    
       TwitterAPI.streamTweets(twitterTopic, function(data) {
         if(data.coordinates){
           if(data.coordinates !== null){
@@ -78,10 +77,11 @@ io.sockets.on('connection', function(socket) {
             var tweetObject = data;
             var topicExists;
 
+            //looking for search term within the text of the tweet
             if(twitterTopic !== undefined) {
               topicExists = textSearch.findTwitterTopic(twitterTopic, tweetObject.text);
             }
-
+            //creating an object with useful properties
             if (twitterTopic === undefined || topicExists === true) {
               var scrubbedTweetObject = {
                 name: tweetObject.user['name'],
@@ -106,12 +106,13 @@ io.sockets.on('connection', function(socket) {
               socket.broadcast.emit("tweet-stream", scrubbedTweetObject);
               socket.emit("tweet-stream", scrubbedTweetObject);
 
-              socket.on('filter', function(topic) {
-                twitterTopic = topic;
-              });
+              //changing twitterTopic to return new data related to twitterTopic mid-stream
+              //below causes a memory leak (global variable)
+              // socket.on('filter', function(topic) {
+              //   twitterTopic = topic;
+              // });
             }
-
-            // Tweet Object that has been scrubbed for relevant data 
+            //Tweet Object that has been scrubbed for relevant data 
 
           }
         }

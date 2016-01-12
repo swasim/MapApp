@@ -11,7 +11,6 @@ var signIn = function(queryData, callback){
 // Adding a new user to the database
 var signUp = function(userData, callback){
   var userObject = new User(userData);
-
   userObject.save(function(err, userInfo){
     var sendBack = (err) ? err : userInfo;
     callback(sendBack);
