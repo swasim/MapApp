@@ -1,19 +1,10 @@
 var passport = require("passport");
 var TwitterStrategy =  require("passport-twitter").Strategy;
-<<<<<<< dbef13786e544c01c06d953dc49772e02caa4899
-
-=======
-var KEYS = require('../../config.js');
->>>>>>> Fixes some deploy conflicts
 
 if(!process.env.CONSUMER_KEY){
   var KEYS = process.env.CONSUMER_KEY || require('../../config.js');
 }
 
-<<<<<<< dbef13786e544c01c06d953dc49772e02caa4899
-
-=======
->>>>>>> Fixes some deploy conflicts
 var mongoose = require('mongoose');
 var User = require('../models/userModel.js');
 
@@ -22,16 +13,12 @@ module.exports = {
   initialize: function() {
 
     var strategyData = {
-<<<<<<< dbef13786e544c01c06d953dc49772e02caa4899
       consumerKey: process.env.CONSUMER_KEY || KEYS.twitter["consumer_key"],
       consumerSecret: process.env.CONSUMER_SECRET || KEYS.twitter["consumer_secret"],
-      callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback"
-=======
       consumerKey: KEYS.twitter["consumer_key"],
       consumerSecret: KEYS.twitter["consumer_secret"],
-      // callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback",
-      callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
->>>>>>> Fixes some deploy conflicts
+      callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback",
+      // callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
     };
 
     passport.serializeUser(function(user, cb) {
