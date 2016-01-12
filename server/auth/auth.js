@@ -1,6 +1,6 @@
 var passport = require("passport");
 var TwitterStrategy =  require("passport-twitter").Strategy;
-var KEYS = require('../../config.js');
+// var KEYS = require('../../config.js');
 
 if(!process.env.CONSUMER_KEY){
   var KEYS = process.env.CONSUMER_KEY || require('../../config.js');
