@@ -13,7 +13,6 @@ var T = new Twit({
     "access_token_secret": process.env.ACCESS_TOKEN_SECRET || twitterCredentials["access_token_secret"]
 });
 
-
 module.exports = { 
 
   // getTweets: Function that gets the 'n' most recent tweets given a query string and a number n
