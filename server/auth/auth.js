@@ -1,6 +1,11 @@
 var passport = require("passport");
 var TwitterStrategy =  require("passport-twitter").Strategy;
 var KEYS = require('../../config.js');
+
+if(!process.env.CONSUMER_KEY){
+  var KEYS = process.env.CONSUMER_KEY || require('../../config.js');
+}
+
 var mongoose = require('mongoose');
 var User = require('../models/userModel.js');
 
@@ -11,6 +16,7 @@ module.exports = {
     var strategyData = {
       consumerKey: KEYS.twitter["consumer_key"],
       consumerSecret: KEYS.twitter["consumer_secret"],
+      // callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback",
       callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
     };
 
