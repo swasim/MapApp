@@ -17,8 +17,8 @@ module.exports = {
       consumerSecret: process.env.CONSUMER_SECRET || KEYS.twitter["consumer_secret"],
       consumerKey: KEYS.twitter["consumer_key"],
       consumerSecret: KEYS.twitter["consumer_secret"],
-      // callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback",
-      callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+      callbackURL: "https://fast-garden-2543.herokuapp.com/auth/twitter/callback",
+      // callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
     };
 
     passport.serializeUser(function(user, cb) {
