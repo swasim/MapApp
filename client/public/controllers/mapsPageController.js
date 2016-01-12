@@ -8,16 +8,6 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
   //contains data for ONLY quality/relevant tweets
   $scope.relevantTweets = [];
 
-  $scope.submitSearch = function () {
-    console.log($scope.searchField)
-    httpService.getTweets($scope.searchField)
-      .then(function (success) {
-        var tweet = success;
-        for(var i = 0; i < tweet.length; i++) {
-          $scope.allTweets.data.push(tweet[i]);
-        }
-      });
-  };
 
   $scope.favoriteSubmit = function () {
     httpService.sendFavorite($scope.favoriteField);
@@ -31,7 +21,7 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
   var onInit = function() {
     ///////////////////////////////////ASSUMPTIONS + VARIABLES//////////////////////////////////////////////////
     //establish criteria for tweets on map
-    var maxNumOfTweetsAllowedOnMap = 100;
+    var maxNumOfTweetsAllowedOnMap = 1000;
     var heatmap = new google.maps.visualization.HeatmapLayer({
       radius: 15
     });
@@ -42,7 +32,7 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
     var maxNumOfRelevantTweetsAllowed = 15;
 
 
-    //SET UP HEAT MAP
+    //////////////////////////////////////////SET UP HEAT MAP///////////////////////////////////////////////////
     $timeout(function(){
       heatmap.setMap(window.map);
     }, 10);
@@ -52,6 +42,12 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
       //connects to socket
       var socket = io.connect();
       //uses socket to listen for incoming tweet stream 
+      
+      $scope.submitSearch = function () {
+        socket.emit("filter", $scope.searchField);
+        console.log($scope.searchField);
+      };
+
       socket.on('tweet-stream', function (data) {
 
         if($scope.allTweets.data.length > maxNumOfTweetsAllowedOnMap){
