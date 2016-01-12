@@ -12,7 +12,7 @@ var User = require('../models/userModel.js');
 module.exports = {
   
   initialize: function() {
-
+  
     var strategyData = {
       consumerKey: process.env.CONSUMER_KEY || KEYS.twitter["consumer_key"],
       consumerSecret: process.env.CONSUMER_SECRET || KEYS.twitter["consumer_secret"],
