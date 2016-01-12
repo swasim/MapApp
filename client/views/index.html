@@ -32,8 +32,10 @@
       <div id="mapContainer">
         <render-map id="map"></render-map>
         <div id="recentRelevantTweetsContainer">
-          <ul id="listOfRelevantTweets" ng-repeat="tweet in relevantTweets">
-            <li class="relevantTweets">{{tweet}}</li>
+          <ul id="listOfRelevantTweets" >
+            <div ng-repeat="tweet in relevantTweets track by $index">
+             <li class="relevantTweets"><b>{{tweet.handle}}: </b>{{tweet.text}}</li>
+            </div>
           </ul>
         </div> 
       </div>
@@ -52,7 +54,7 @@
   <script src="client/public/controllers/searchController.js"></script>
   <script src="client/public/services/httpService.js"></script>
   <script src="client/public/controllers/mapsPageController.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=angular.noop"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
   <script src="node_modules/socket.io-client/socket.io.js"></script>
 
 </html> 

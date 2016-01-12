@@ -15,6 +15,7 @@ renderMap.directive('renderMap', function(){
       var mapOptions = {
           center: new google.maps.LatLng(0, 0),
           zoom: 2,
+          minZoom: 2, 
           mapTypeControl: true,
           mapTypeControl: true,
             mapTypeControlOptions: {
