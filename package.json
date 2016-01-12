@@ -1,6 +1,9 @@
 {
   "name": "mapapp",
   "version": "1.0.0",
+  "engines": {
+    "node":"v5.2.0"
+  },
   "description": "Interactive Map",
   "main": "server/server.js",
   "scripts": {
