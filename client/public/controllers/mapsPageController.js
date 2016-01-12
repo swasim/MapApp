@@ -1,24 +1,16 @@
 app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', "$timeout", function ($scope, $http, httpService, $sce, $timeout) {
 
-  //contains data for ALL incoming tweets
+  //////////////////////////////////////////MAPS PAGE CONTROLLER DRIVER//////////////////////////////////////////////
+
+  //create array that will contain data for ALL incoming tweets
   $scope.allTweets = {
     data: []
   };
 
-  //contains data for ONLY quality/relevant tweets
+  //create array that will contain data for ONLY quality/relevant tweets
   $scope.relevantTweets = [];
 
-  $scope.submitSearch = function () {
-    console.log($scope.searchField)
-    httpService.getTweets($scope.searchField)
-      .then(function (success) {
-        var tweet = success;
-        for(var i = 0; i < tweet.length; i++) {
-          $scope.allTweets.data.push(tweet[i]);
-        }
-      });
-  };
-
+  //function that will ultimately 
   $scope.favoriteSubmit = function () {
     httpService.sendFavorite($scope.favoriteField);
   };
@@ -28,30 +20,62 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
     $scope.relevantTweets.unshift(tweet);
   }
 
+  ////////////////////////////////////////////CREATE AND OPEN SOCKET/////////////////////////////////////////////////////////
+  
   var onInit = function() {
-    ///////////////////////////////////ASSUMPTIONS + VARIABLES//////////////////////////////////////////////////
-    //establish criteria for tweets on map
-    var maxNumOfTweetsAllowedOnMap = 100;
+    
+    ////////////////////////////////ASSUMPTIONS + DRIVERS FOR HANDLING DATA STREAM///////////////////////////////////////////
+    
+    //establish map drivers
+    var maxNumOfTweetsAllowedOnMap = 1000;
     var heatmap = new google.maps.visualization.HeatmapLayer({
       radius: 15
     });
+    
+    var setMapOnAll = function(map) {
+      for (var i = 0; i < $scope.allTweets.data.length; i++) {
+        $scope.allTweets.data[i].setMap(map);
+      }
+    };
+
+    var clearMarkers = function(){
+      setMapOnAll(null);
+    };
+    var deleteMarkers = function() {
+      clearMarkers();
+      $scope.allTweets.data = [];
+    };
+
     //establish tweet relevancy criteria; 
-    var numOfFollowersToBeRelevant = 2500;
-    var numOfRetweetsToBeRelevant = 10; 
-    //establish relevant tweet limit;
+    var numOfFollowersToBeRelevant = 10000;
+    var numOfRetweetsToBeRelevant = 50; 
     var maxNumOfRelevantTweetsAllowed = 15;
 
 
-    //SET UP HEAT MAP
+    //////////////////////////////////////////SET UP HEAT MAP///////////////////////////////////////////////////
     $timeout(function(){
       heatmap.setMap(window.map);
     }, 10);
  
-    ////////////////////////////////////////////SOCKET CONNECTION///////////////////////////////////////////////
+    //////////////////////////////////////////CONNECT TO SOCKET///////////////////////////////////////////////
     if(io !== undefined) {
       //connects to socket
       var socket = io.connect();
       //uses socket to listen for incoming tweet stream 
+      
+      //code is a little buggy, but should offer a good start for doing the following when a search request is submitted:
+      // a) clearing the map, b) emitting a filter request to the stream and c) re-starting the heatmap
+      // $scope.submitSearch = function () {
+      //   deleteMarkers();
+      //   heatmap.setMap(null);
+      //   socket.emit("filter", $scope.searchField);
+      //   console.log($scope.searchField);
+      //   heatmap = new google.maps.visualization.HeatmapLayer({
+      //     radius: 15
+      //   });
+      //   heatmap.setMap(window.map);
+      // };
+
       socket.on('tweet-stream', function (data) {
 
         if($scope.allTweets.data.length > maxNumOfTweetsAllowedOnMap){
@@ -82,7 +106,6 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
           $scope.$apply(function() {
             $scope.addRelevantTweet(tweetObject);
           })
-          console.log("relevant tweets arr -->", $scope.relevantTweets);
         }
 
         ///////////////////////////////////PLACE ALL INCOMING TWEETS ON MAP///////////////////////////////////////
@@ -116,6 +139,7 @@ app.controller('mapsPageController', ['$scope', '$http', 'httpService', '$sce', 
         $scope.allTweets.data.push(tweetMarker);
 
       })
+      
 
       socket.on('connected', function (r) {
         console.log('connected client');
