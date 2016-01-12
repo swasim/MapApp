@@ -38,54 +38,8 @@ renderMap.directive('renderMap', function(){
           }
       };
       
-      //NOTE: not 100%, but pretty sure we should initialize map here;
-      initMap();
-
-      //set up a watch on scope, connecting the custom renderMap directive to the mapsPageController; this $watch.collection
-      //will be watching for changes in the allTweets.data variable defined in mapsPageController
-      scope.$watchCollection('allTweets.data', function(newValue, oldValue){
-          // console.log(newValue, oldValue);
-          // //go through each NEW tweet and attribute its text/location attributes to a pin on the map
-          //  angular.forEach(scope.allTweets.data, function(tweet){
-          //   //check if mapMarkers length is greater than or equal to marker limit; if so, remove oldest pin;
-          //   //DOUBLE CHECK THAT THIS REFERENCES CORRECTLY
-          //   if(mapMarkers.length >= markerLimit){
-          //     var pinToRemove = mapMarkers.shift();
-          //     pinToRemove.setMap(null);
-          //   };
-          //   console.log(tweet);
-          //   //determine map marker location/shape for each tweet
-          //    var tweetLocation = new google.maps.LatLng(tweet["coordinates"]["coordinates"][1],tweet["coordinates"]["coordinates"][0]);
-          //    var tweetMarker = new google.maps.Marker({
-          //      position: tweetLocation,
-          //      map: map
-          //    });
-
-          //    //determine content added to info window on each marker  
-          //    var tweetContent = '<div>' + tweet['text'] + '</div>';
-          //    var markerInfoWindow = new google.maps.InfoWindow({
-          //      content: tweetContent
-          //    });
-
-          //    //set up listeners for each tweetMarker...
-          //    tweetMarker.addListener('mouseover', function () {
-          //      markerInfoWindow.open(map, tweetMarker);
-          //    });
-          //    tweetMarker.addListener('mouseout', function () {
-          //      markerInfoWindow.close();
-          //    });
-
-    
-          //    //set tweet on map...
-          //    tweetMarker.setMap(map, tweetLocation, tweetContent);
-          //    //add new tweets to mapMarkers array and setMap
-          //    mapMarkers.push(tweetMarker);
-          //    //removing last proessed tweet info from scope.allTweets.data
-          //    scope.allTweets.data.shift();
-          //    },true);
-
-        });   
-      };
+      initMap();  
+  };
   
   //custom directives expect a return object in the format below...
   return {
