@@ -1,2 +1,2 @@
 # MapApp
-Interactive Map
+Interactive Map App implementing google and twitter api.
